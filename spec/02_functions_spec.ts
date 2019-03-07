@@ -95,6 +95,81 @@ describe('functions', () => {
                     expect(evens).toEqual([2, 4, 6, 8]);
                     expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
                 });
+                it('map', () => {
+                    const doubled = numbers.map(n => n * 2);
+                    expect(doubled).toEqual([2, 4, 6, 8, 10, 12, 14, 16, 18])
+                });
+
+                it('practice', () => {
+                    interface Vehicle {
+                        vin: string;
+                        makeAndModel: string;
+                        mileage: number;
+                    }
+                    const vehicles: Vehicle[] = [
+                        { vin: '9999', makeAndModel: 'Chevy Tahoe', mileage: 182000 },
+                        { vin: 'aka92', makeAndModel: 'Toyota Prius', mileage: 89999 },
+                        { vin: 'kduwi', makeAndModel: 'Ford Explorer', mileage: 99998 }
+                    ];
+
+                    const lowMileageVehicles = vehicles // Vehicle[{}, {}, {}] 
+                        .filter(n => n.mileage < 100_000) // Vehicles[{}, {}]
+                        .map(n => n.makeAndModel); //String[] ["",""]
+                    // add your code to this line.
+
+                    expect(lowMileageVehicles).toEqual(['Toyota Prius', 'Ford Explorer']);
+                });
+                describe('methods that produce a single (scalar) value', () => {
+                    it('has methods that check the membership of an array', () => {
+                        expect(numbers.some(n => n > 8)).toBe(true) // "some" returns true when it finds at least on true expression
+                        expect(numbers.every(n => n % 2 === 0)).toBe(false) // "every" number in array is divisible by 2
+                    });
+                    it('has reduce', () => {
+                        expect(numbers.reduce((s, n) => s + n)).toBe(45) // 's' and 'n' are interchangable variables 
+                        expect(numbers.reduce((s, n) => s + n, 100)).toBe(145) // 100 is set as the seed (or starting point of the reduce function)
+                    });
+                });
+                describe('a demo', () => {
+                    it('using reduce for something "real"', () => {
+                        interface Vehicle {
+                            vin: string;
+                            makeAndModel: string;
+                            mileage: number;
+                        }
+                        const vehicles: Vehicle[] = [
+                            { vin: '9999', makeAndModel: 'Chevy Tahoe', mileage: 182000 },
+                            { vin: 'aka92', makeAndModel: 'Toyota Prius', mileage: 89999 },
+                            { vin: 'kduwi', makeAndModel: 'Ford Explorer', mileage: 99998 }
+                        ];
+
+                        interface HighestMileageVehicle {
+                            vin: string;
+                            mileage: number;
+                        }
+
+                        const seed: HighestMileageVehicle = {
+                            vin: null,
+                            mileage: -1
+                        };
+
+                        const answer = vehicles.reduce((p, n) => {
+                            if (n.mileage > p.mileage) {
+                                return {
+                                    vin: n.vin,
+                                    mileage: n.mileage
+                                };
+                            } else {
+                                return p
+                            }
+
+                        }, seed);
+
+                        expect(answer).toEqual({
+                            vin: '9999',
+                            mileage: 182000
+                        });
+                    });
+                });
             });
         });
     });
