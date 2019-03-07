@@ -83,6 +83,19 @@ describe('functions', () => {
 
 
         });
+        describe('array methods', () => {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+            it('taking a look at every member of an array', () => {
+                numbers.forEach((x) => console.log(x));
+            });
+            describe('methods that return new arrays', () => {
+                it('has a filter', () => {
+                    const evens = numbers.filter(formatters.isEven);
+                    expect(evens).toEqual([2, 4, 6, 8]);
+                    expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+                });
+            });
+        });
     });
 });

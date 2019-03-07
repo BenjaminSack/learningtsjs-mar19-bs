@@ -9,3 +9,7 @@ export const PI = 3.1415;
 export function wrap(chars: string): Transform {
     return (x) => `${chars}${x}${chars}`;
 }
+
+export function isEven(n: number): boolean {
+    return n % 2 === 0;
+}
