@@ -65,9 +65,24 @@ describe('functions', () => {
         it('takes a function as an argument', () => {
 
             const answer = formatters.formatName('Han', 'Solo');
-            expect(answer).toBe('Solo, Han')
+            expect(answer).toBe('Solo, Han');
             expect(formatters.PI).toBe(3.1415);
 
+            expect(formatters.formatName('Han', 'Solo', (x) => x.toUpperCase())).toBe('SOLO, HAN');
+            const wrapInStars = formatters.wrap('***');
+            expect(wrapInStars('Tacos')).toBe('***Tacos***');
+            expect(formatters.formatName('Han', 'Solo', wrapInStars)).toBe('***Solo, Han***');
+
+            //const wrapInCarots: formatters.Transform = (x) => `^^^${x}^^^`;
+            const wrapInCarots = formatters.wrap('^^^');
+            expect(formatters.formatName('Han', 'Solo', wrapInCarots)).toBe('^^^Solo, Han^^^');
+
+            // function wrapInStars(what: string): string {
+            //     return `***${what}***`;
+            // }
+
+
         });
+
     });
 });
